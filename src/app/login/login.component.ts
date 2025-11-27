@@ -16,7 +16,7 @@ export class LoginComponent {
   login() {
     if(this.username.trim() === this.correctUsername) {
       localStorage.setItem('user', this.username.trim());
-      this.router.navigate(['/login']);
+      this.router.navigate(['/notes']);
     } else {
       alert('Wrong username! Please enter the correct username.');
     }
