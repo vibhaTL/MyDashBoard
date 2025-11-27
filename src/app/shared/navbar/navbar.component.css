@@ -1,0 +1,41 @@
+/* Custom navbar background with gradient */
+.custom-navbar {
+  background: linear-gradient(90deg, #b31760 0%, #2575fc 100%);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 0 0 15px 15px;
+}
+
+/* Navbar brand style */
+.custom-navbar .navbar-brand {
+  font-weight: bold;
+  font-size: 1.6rem;
+  color: #ffffff;
+}
+
+/* Navbar links style */
+.custom-navbar .nav-link {
+  color: #f0f0f0;
+  margin: 0 0.5rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+/* Hover effect for links */
+.custom-navbar .nav-link:hover {
+  color: #ffd700;
+  transform: scale(1.1);
+}
+
+/* Active link style */
+.custom-navbar .nav-link.active {
+  color: #ffea00;
+  font-weight: bold;
+  border-bottom: 2px solid #ffea00;
+  border-radius: 5px 5px 0 0;
+}
+
+/* Toggler icon color */
+.navbar-toggler-icon {
+  filter: invert(1);
+}

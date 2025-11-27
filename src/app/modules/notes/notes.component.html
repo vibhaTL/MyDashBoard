@@ -1,0 +1,35 @@
+<div class="container mt-4">
+  <h2> My Notes</h2>
+
+  <!-- Input for new note -->
+  <div class="input-group mb-3 mt-3">
+    <input type="text" class="form-control" placeholder="Write a note..." [(ngModel)]="newNote">
+    <button class="btn btn-primary" (click)="addNote()">Add Note</button>
+  </div>
+
+  <!-- List of notes -->
+  <ul class="list-group">
+    <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let note of notes; let i = index">
+
+      <!-- Normal view -->
+      <div *ngIf="editIndex !== i">
+        <strong>{{ note.date }}</strong> - {{ note.text }}
+      </div>
+
+      <!-- Edit view -->
+      <div *ngIf="editIndex === i" class="d-flex w-100">
+        <input type="text" class="form-control me-2" [(ngModel)]="editedText">
+        <button class="btn btn-sm btn-success me-1" (click)="saveEdit(i)">EDIT</button>
+        <button class="btn btn-sm btn-secondary" (click)="cancelEdit()">DELETE</button>
+      </div>
+
+      <!-- Action buttons -->
+      <div *ngIf="editIndex !== i">
+        <button class="btn btn-sm btn-warning me-1" (click)="startEdit(i)">EDIT</button>
+        <button class="btn btn-sm btn-danger" (click)="deleteNote(i)">DELETE</button>
+      </div>
+    </li>
+  </ul>
+
+  <p *ngIf="notes.length === 0" class="text-muted mt-3">No notes yet. Add something!</p>
+</div>

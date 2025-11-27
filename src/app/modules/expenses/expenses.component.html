@@ -1,0 +1,72 @@
+<div class="container mt-4">
+  <h2>Expenses Tracker</h2>
+
+  <!-- Add Expense -->
+  <div class="row mb-3 mt-3">
+    <div class="col-md-3">
+      <select class="form-select" [(ngModel)]="newCategory">
+        <option value="" disabled selected>Select category</option>
+        <option *ngFor="let cat of categories">{{ cat }}</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <input type="number" class="form-control" placeholder="Amount" [(ngModel)]="newAmount">
+    </div>
+    <div class="col-md-4">
+      <input type="text" class="form-control" placeholder="Note (optional)" [(ngModel)]="newNote">
+    </div>
+    <div class="col-md-2">
+      <button class="btn btn-success w-100" (click)="addExpense()">Add</button>
+    </div>
+  </div>
+
+  <!-- Expense List -->
+  <ul class="list-group">
+    <li *ngFor="let expense of expenses; let i = index" class="list-group-item d-flex justify-content-between align-items-center" 
+        [ngClass]="{ 'bg-light': i % 2 === 0, 'bg-white': i % 2 !== 0 }">
+
+      <!-- Normal view -->
+      <div *ngIf="editIndex !== i">
+        <span class="badge bg-primary me-2">{{ expense.category }}</span>
+        {{ expense.amount | currency:'INR' }} - {{ expense.note }}
+        <small class="text-secondary">({{ expense.date | date:'short' }})</small>
+      </div>
+
+      <!-- Edit view -->
+      <div *ngIf="editIndex === i" class="d-flex w-100 gap-2">
+        <select class="form-select" [(ngModel)]="editedCategory">
+          <option *ngFor="let cat of categories">{{ cat }}</option>
+        </select>
+        <input type="number" class="form-control" [(ngModel)]="editedAmount">
+        <input type="text" class="form-control" [(ngModel)]="editedNote">
+        <button class="btn btn-sm btn-success" (click)="saveEdit(i)">EDIT</button>
+        <button class="btn btn-sm btn-secondary" (click)="cancelEdit()">DELETE</button>
+      </div>
+
+      <!-- Action buttons -->
+      <div *ngIf="editIndex !== i">
+        <button class="btn btn-sm btn-warning me-1" (click)="startEdit(i)">EDIT</button>
+        <button class="btn btn-sm btn-danger" (click)="deleteExpense(i)">DELETE</button>
+      </div>
+    </li>
+  </ul>
+
+  <!-- Totals -->
+  <div class="mt-4">
+    <h5>Total Expenses: <span class="text-success">{{ getTotal() | currency:'INR' }}</span></h5>
+
+    <h6 class="mt-3">Daily Totals:</h6>
+    <ul>
+      <li *ngFor="let day of getUniqueDays()">
+        {{ day }}: <strong>{{ getTotalByDay(day) | currency:'INR' }}</strong>
+      </li>
+    </ul>
+
+    <h6 class="mt-3">Monthly Totals:</h6>
+    <ul>
+      <li *ngFor="let m of getUniqueMonths()">
+        {{ m.month + 1 }}/{{ m.year }}: <strong>{{ getTotalByMonth(m.year, m.month) | currency:'INR' }}</strong>
+      </li>
+    </ul>
+  </div>
+</div>

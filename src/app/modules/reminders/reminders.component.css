@@ -1,0 +1,22 @@
+.container {
+  max-width: 900px;
+}
+
+.list-group-item {
+  border-radius: 0.25rem;
+  margin-bottom: 5px;
+  transition: 0.3s;
+}
+
+.list-group-item:hover {
+  transform: scale(1.02);
+  background-color: #fef9f3 !important;
+}
+
+input, button {
+  border-radius: 0.25rem;
+}
+
+.text-decoration-line-through {
+  text-decoration: line-through;
+}

@@ -1,0 +1,39 @@
+<div class="container mt-4">
+  <h2>Daily Tasks</h2>
+
+  <!-- Add Task -->
+  <div class="input-group mb-3 mt-3">
+    <input type="text" class="form-control" placeholder="Add a new task..." [(ngModel)]="newTask">
+    <button class="btn btn-success" (click)="addTask()">Add</button>
+  </div>
+
+  <!-- Task List -->
+  <ul class="list-group">
+    <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let task of tasks; let i = index">
+
+      <!-- Normal view -->
+      <div *ngIf="editIndex !== i" class="d-flex align-items-center">
+        <input type="checkbox" [(ngModel)]="task.completed" (change)="toggleComplete(i)" class="me-2">
+        <span [ngClass]="{'text-decoration-line-through text-muted': task.completed}">
+          {{ task.text }} <small class="text-secondary">({{ task.date }})</small>
+        </span>
+      </div>
+
+      <!-- Edit view -->
+      <div *ngIf="editIndex === i" class="d-flex w-100">
+        <input type="text" class="form-control me-2" [(ngModel)]="editedText">
+        <button class="btn btn-sm btn-success me-1" (click)="saveEdit(i)">EDIT</button>
+        <button class="btn btn-sm btn-secondary" (click)="cancelEdit()">DELETE</button>
+      </div>
+
+      <!-- Action buttons -->
+      <div *ngIf="editIndex !== i">
+        <button class="btn btn-sm btn-warning me-1" (click)="startEdit(i)">EDIT</button>
+        <button class="btn btn-sm btn-danger" (click)="deleteTask(i)">DELETE</button>
+      </div>
+
+    </li>
+  </ul>
+
+  <p *ngIf="tasks.length === 0" class="text-muted mt-3">No tasks yet. Add something!</p>
+</div>
